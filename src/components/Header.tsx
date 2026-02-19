@@ -249,7 +249,7 @@ export default function Header() {
                 </div>
                 <div className="flex gap-2">
                   <Link
-                    href="/settings"
+                    href="/profile"
                     onClick={() => setMenuOpen(false)}
                     className="flex-1 text-center text-xs font-medium text-primary bg-primary/10 hover:bg-primary/20 py-2 rounded-lg transition-colors"
                   >
@@ -834,7 +834,7 @@ export default function Header() {
             {/* Desktop user button */}
             {user ? (
               <Link
-                href="/settings"
+                href="/profile"
                 className="hidden lg:flex items-center gap-2 p-1.5 hover:bg-white/5 rounded-lg transition-colors"
               >
                 {user.photoURL ? (
