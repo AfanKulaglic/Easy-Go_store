@@ -751,8 +751,12 @@ export default function ProductPage() {
                     href={`/product/${item.slug || item.id}`} 
                     className={`group bg-surface rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-black/20 transition-all border border-white/5 ${index >= 2 ? 'hidden lg:block' : ''}`}
                   >
-                    <div className="relative aspect-square bg-gradient-to-br from-white/5 to-transparent flex items-center justify-center">
-                      <img src="/assets/images/logo.png" alt={item.name} className="w-12 h-12 object-contain opacity-30" />
+                    <div className="relative aspect-square bg-gradient-to-br from-white/5 to-transparent flex items-center justify-center overflow-hidden">
+                      {item.image && isImageData(item.image) ? (
+                        <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
+                      ) : (
+                        <img src="/assets/images/logo.png" alt={item.name} className="w-12 h-12 object-contain opacity-30" />
+                      )}
                       {badgeInfo && (
                         <span className={`absolute top-3 left-3 text-[10px] font-medium px-2 py-1 rounded-lg ${badgeInfo.className}`}>
                           {badgeInfo.text}
