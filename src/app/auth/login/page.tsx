@@ -88,7 +88,7 @@ export default function LoginPage() {
   return (
     <div className="min-h-[calc(100vh-5rem)] flex">
       {/* Left Panel — Brand/Features (desktop only) */}
-      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-gradient-to-br from-primary via-blue-600 to-indigo-700 flex-col justify-between items-end p-10 xl:p-12">
+      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-gradient-to-br from-primary via-blue-600 to-indigo-700 flex-col justify-between p-10 xl:p-12">
         {/* Decorative circles */}
         <div className="absolute -top-24 -left-24 w-64 h-64 bg-white/10 rounded-full blur-2xl" />
         <div className="absolute -bottom-32 -right-32 w-80 h-80 bg-white/5 rounded-full blur-3xl" />
@@ -96,7 +96,7 @@ export default function LoginPage() {
 
         {/* Top */}
         <div className="relative z-10 text-left">
-          <div className="flex items-center gap-3 mb-12 justify-end">
+          <div className="flex items-center gap-3 mb-12">
             <div className="h-11 w-11 rounded-xl bg-white/15 backdrop-blur-sm flex items-center justify-center ring-1 ring-white/20">
               <img src="/assets/images/logo.png" alt="Logo" className="h-7 w-7 object-contain" />
             </div>
@@ -105,7 +105,7 @@ export default function LoginPage() {
           <h2 className="text-3xl xl:text-4xl font-bold text-white leading-tight mb-4">
             Vaša omiljena<br />online prodavnica
           </h2>
-          <p className="text-white/60 text-sm leading-relaxed max-w-[320px] ml-auto">
+          <p className="text-white/60 text-sm leading-relaxed max-w-[320px]">
             Prijavite se i uživajte u najboljim ponudama, brzoj dostavi i sigurnoj kupovini.
           </p>
         </div>
@@ -113,7 +113,7 @@ export default function LoginPage() {
         {/* Features */}
         <div className="relative z-10 space-y-4">
           {features.map((feat, i) => (
-            <div key={i} className="flex items-center gap-4 group flex-row-reverse">
+            <div key={i} className="flex items-center gap-4 group">
               <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center ring-1 ring-white/10 group-hover:bg-white/15 transition-colors flex-shrink-0">
                 <feat.icon className="w-5 h-5 text-white/80" />
               </div>
@@ -127,7 +127,7 @@ export default function LoginPage() {
 
         {/* Bottom */}
         <div className="relative z-10 pt-4">
-          <div className="flex items-center gap-2 flex-row-reverse">
+          <div className="flex items-center gap-2">
             <div className="flex -space-x-2">
               {['😊', '🛒', '⭐'].map((emoji, i) => (
                 <div key={i} className="w-8 h-8 rounded-full bg-white/10 backdrop-blur-sm ring-2 ring-primary flex items-center justify-center text-sm">
