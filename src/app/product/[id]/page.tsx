@@ -382,7 +382,7 @@ export default function ProductPage() {
                     <button
                       key={index}
                       onClick={() => !isDragging && setSelectedImage(index)}
-                      className={`w-[calc(25%-6px)] min-w-[calc(25%-6px)] aspect-square rounded-xl overflow-hidden border-2 transition-colors flex-shrink-0 ${
+                      className={`w-[calc((100%-32px)/4.2)] min-w-[calc((100%-32px)/4.2)] aspect-square rounded-xl overflow-hidden border-2 transition-colors flex-shrink-0 ${
                         selectedImage === index 
                           ? 'border-primary shadow-lg shadow-primary/20' 
                           : 'border-white/10 hover:border-white/30'
