@@ -94,48 +94,51 @@ export default function LoginPage() {
         <div className="absolute -bottom-32 -right-32 w-80 h-80 bg-white/5 rounded-full blur-3xl" />
         <div className="absolute top-1/2 left-0 w-40 h-40 bg-white/5 rounded-full blur-2xl" />
 
-        {/* Top */}
-        <div className="relative z-10 text-left">
-          <div className="flex items-center gap-3 mb-12">
-            <div className="h-11 w-11 rounded-xl bg-white/15 backdrop-blur-sm flex items-center justify-center ring-1 ring-white/20">
-              <img src="/assets/images/logo.png" alt="Logo" className="h-7 w-7 object-contain" />
+        {/* Content wrapper */}
+        <div className="relative z-10 w-full max-w-[380px] flex flex-col gap-10">
+          {/* Top */}
+          <div className="text-left">
+            <div className="flex items-center gap-3 mb-12">
+              <div className="h-11 w-11 rounded-xl bg-white/15 backdrop-blur-sm flex items-center justify-center ring-1 ring-white/20">
+                <img src="/assets/images/logo.png" alt="Logo" className="h-7 w-7 object-contain" />
+              </div>
+              <span className="text-white/90 font-bold text-lg tracking-tight">Easy Go</span>
             </div>
-            <span className="text-white/90 font-bold text-lg tracking-tight">Easy Go</span>
+            <h2 className="text-3xl xl:text-4xl font-bold text-white leading-tight mb-4">
+              Vaša omiljena<br />online prodavnica
+            </h2>
+            <p className="text-white/60 text-sm leading-relaxed">
+              Prijavite se i uživajte u najboljim ponudama, brzoj dostavi i sigurnoj kupovini.
+            </p>
           </div>
-          <h2 className="text-3xl xl:text-4xl font-bold text-white leading-tight mb-4">
-            Vaša omiljena<br />online prodavnica
-          </h2>
-          <p className="text-white/60 text-sm leading-relaxed max-w-[320px]">
-            Prijavite se i uživajte u najboljim ponudama, brzoj dostavi i sigurnoj kupovini.
-          </p>
-        </div>
 
-        {/* Features */}
-        <div className="relative z-10 space-y-4">
-          {features.map((feat, i) => (
-            <div key={i} className="flex items-center gap-4 group">
-              <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center ring-1 ring-white/10 group-hover:bg-white/15 transition-colors flex-shrink-0">
-                <feat.icon className="w-5 h-5 text-white/80" />
-              </div>
-              <div className="text-left">
-                <p className="text-white text-sm font-semibold">{feat.title}</p>
-                <p className="text-white/50 text-xs">{feat.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Bottom */}
-        <div className="relative z-10 pt-4">
-          <div className="flex items-center gap-2">
-            <div className="flex -space-x-2">
-              {['😊', '🛒', '⭐'].map((emoji, i) => (
-                <div key={i} className="w-8 h-8 rounded-full bg-white/10 backdrop-blur-sm ring-2 ring-primary flex items-center justify-center text-sm">
-                  {emoji}
+          {/* Features */}
+          <div className="space-y-4">
+            {features.map((feat, i) => (
+              <div key={i} className="flex items-center gap-4 group">
+                <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center ring-1 ring-white/10 group-hover:bg-white/15 transition-colors flex-shrink-0">
+                  <feat.icon className="w-5 h-5 text-white/80" />
                 </div>
-              ))}
+                <div className="text-left">
+                  <p className="text-white text-sm font-semibold">{feat.title}</p>
+                  <p className="text-white/50 text-xs">{feat.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Bottom */}
+          <div className="pt-4">
+            <div className="flex items-center gap-2">
+              <div className="flex -space-x-2">
+                {['😊', '🛒', '⭐'].map((emoji, i) => (
+                  <div key={i} className="w-8 h-8 rounded-full bg-white/10 backdrop-blur-sm ring-2 ring-primary flex items-center justify-center text-sm">
+                    {emoji}
+                  </div>
+                ))}
+              </div>
+              <p className="text-white/50 text-xs mr-2">Više od <span className="text-white/80 font-semibold">1,000+</span> zadovoljnih kupaca</p>
             </div>
-            <p className="text-white/50 text-xs mr-2">Više od <span className="text-white/80 font-semibold">1,000+</span> zadovoljnih kupaca</p>
           </div>
         </div>
       </div>
