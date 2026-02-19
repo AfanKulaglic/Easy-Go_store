@@ -113,8 +113,8 @@ export default function ProductPage() {
     )
   }
 
-  const allImages: string[] = []
-  const currentImage = ''
+  const allImages = [displayProduct.image, ...(displayProduct.images || [])].filter(img => img && (img.startsWith('data:') || img.startsWith('http') || img.startsWith('/')))
+  const currentImage = allImages[selectedImage] || displayProduct.image
   const hasVideo = !!displayProduct.videoUrl
 
   const handleAddToCart = () => {
@@ -180,7 +180,7 @@ export default function ProductPage() {
     return null
   }
 
-  const isImageData = (_str: string) => false
+  const isImageData = (str: string) => str?.startsWith('data:image') || str?.startsWith('http') || str?.startsWith('/')
 
   const discount = displayProduct.originalPrice 
     ? Math.round(((displayProduct.originalPrice - displayProduct.price) / displayProduct.originalPrice) * 100)

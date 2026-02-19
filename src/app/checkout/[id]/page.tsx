@@ -9,6 +9,8 @@ import { addOrder } from '@/lib/realtimeProducts'
 import { getGuestDeviceId } from '@/lib/realtimeProducts'
 import { useAuth } from '@/context/AuthContext'
 
+const isImageUrl = (str: string) => str?.startsWith('http') || str?.startsWith('/') || str?.startsWith('data:')
+
 export default function CheckoutPage() {
   const router = useRouter()
   const params = useParams()
@@ -296,7 +298,7 @@ export default function CheckoutPage() {
             
             <div className="bg-background rounded-xl p-4 mb-6 border border-white/5">
               <div className="flex items-center gap-3 mb-3">
-                {product.image && product.image.startsWith('data:') ? (
+                {product.image && isImageUrl(product.image) ? (
                   <img src={product.image} alt={product.name} className="w-16 h-16 rounded-lg object-cover" />
                 ) : (
                   <div className="w-16 h-16 bg-white/5 rounded-lg flex items-center justify-center">
@@ -484,7 +486,7 @@ export default function CheckoutPage() {
               <h3 className="font-semibold text-text mb-4">Vaša narudžba</h3>
               
               <div className="flex items-center gap-3 pb-4 border-b border-white/5">
-                {product.image && product.image.startsWith('data:') ? (
+                {product.image && isImageUrl(product.image) ? (
                   <img src={product.image} alt={product.name} className="w-20 h-20 rounded-xl object-cover" />
                 ) : (
                   <div className="w-20 h-20 bg-white/5 rounded-xl flex items-center justify-center">
@@ -528,7 +530,7 @@ export default function CheckoutPage() {
         {/* Mobile Order Summary */}
         <div className="lg:hidden mt-6 bg-surface rounded-2xl p-4 border border-white/5">
           <div className="flex items-center gap-3">
-            {product.image && product.image.startsWith('data:') ? (
+            {product.image && isImageUrl(product.image) ? (
               <img src={product.image} alt={product.name} className="w-16 h-16 rounded-xl object-cover" />
             ) : (
               <div className="w-16 h-16 bg-white/5 rounded-xl flex items-center justify-center">
