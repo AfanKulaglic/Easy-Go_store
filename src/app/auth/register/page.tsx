@@ -96,15 +96,15 @@ export default function RegisterPage() {
   return (
     <div className="min-h-[calc(100vh-5rem)] flex">
       {/* Left Panel — Brand/Features (desktop only) */}
-      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-gradient-to-br from-primary via-blue-600 to-indigo-700 flex-col justify-between p-10 xl:p-12">
+      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-gradient-to-br from-primary via-blue-600 to-indigo-700 flex-col justify-between items-end p-10 xl:p-12">
         {/* Decorative circles */}
-        <div className="absolute -top-24 -right-24 w-64 h-64 bg-white/10 rounded-full blur-2xl" />
-        <div className="absolute -bottom-32 -left-32 w-80 h-80 bg-white/5 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 right-0 w-40 h-40 bg-white/5 rounded-full blur-2xl" />
+        <div className="absolute -top-24 -left-24 w-64 h-64 bg-white/10 rounded-full blur-2xl" />
+        <div className="absolute -bottom-32 -right-32 w-80 h-80 bg-white/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/2 left-0 w-40 h-40 bg-white/5 rounded-full blur-2xl" />
 
         {/* Top */}
-        <div className="relative z-10">
-          <div className="flex items-center gap-3 mb-12">
+        <div className="relative z-10 text-right">
+          <div className="flex items-center gap-3 mb-12 justify-end">
             <div className="h-11 w-11 rounded-xl bg-white/15 backdrop-blur-sm flex items-center justify-center ring-1 ring-white/20">
               <img src="/assets/images/logo.png" alt="Logo" className="h-7 w-7 object-contain" />
             </div>
@@ -113,7 +113,7 @@ export default function RegisterPage() {
           <h2 className="text-3xl xl:text-4xl font-bold text-white leading-tight mb-4">
             Pridružite se<br />Easy Go porodici
           </h2>
-          <p className="text-white/60 text-sm leading-relaxed max-w-[320px]">
+          <p className="text-white/60 text-sm leading-relaxed max-w-[320px] ml-auto">
             Kreirajte račun i otkrijte sve pogodnosti kupovine sa nama.
           </p>
         </div>
@@ -121,11 +121,11 @@ export default function RegisterPage() {
         {/* Features */}
         <div className="relative z-10 space-y-4">
           {features.map((feat, i) => (
-            <div key={i} className="flex items-center gap-4 group">
+            <div key={i} className="flex items-center gap-4 group flex-row-reverse">
               <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center ring-1 ring-white/10 group-hover:bg-white/15 transition-colors flex-shrink-0">
                 <feat.icon className="w-5 h-5 text-white/80" />
               </div>
-              <div>
+              <div className="text-right">
                 <p className="text-white text-sm font-semibold">{feat.title}</p>
                 <p className="text-white/50 text-xs">{feat.desc}</p>
               </div>
@@ -135,7 +135,7 @@ export default function RegisterPage() {
 
         {/* Bottom */}
         <div className="relative z-10 pt-4">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-row-reverse">
             <div className="flex -space-x-2">
               {['😊', '🛒', '⭐'].map((emoji, i) => (
                 <div key={i} className="w-8 h-8 rounded-full bg-white/10 backdrop-blur-sm ring-2 ring-primary flex items-center justify-center text-sm">
@@ -143,7 +143,7 @@ export default function RegisterPage() {
                 </div>
               ))}
             </div>
-            <p className="text-white/50 text-xs ml-2">Više od <span className="text-white/80 font-semibold">1,000+</span> zadovoljnih kupaca</p>
+            <p className="text-white/50 text-xs mr-2">Više od <span className="text-white/80 font-semibold">1,000+</span> zadovoljnih kupaca</p>
           </div>
         </div>
       </div>
