@@ -86,7 +86,7 @@ export default function LoginPage() {
   ]
 
   return (
-    <div className="min-h-[calc(100vh-5rem)] flex">
+    <div className="min-h-[calc(100vh-7rem)] flex">
       {/* Left Panel — Brand/Features (desktop only) */}
       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-gradient-to-br from-primary via-blue-600 to-indigo-700 flex-col justify-center items-center gap-10 p-10 xl:p-12 pb-24">
         {/* Decorative circles */}
