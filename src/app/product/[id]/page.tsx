@@ -189,6 +189,20 @@ export default function ProductPage() {
   const nextImage = () => setSelectedImage(prev => (prev + 1) % allImages.length)
   const prevImage = () => setSelectedImage(prev => (prev - 1 + allImages.length) % allImages.length)
 
+  // Auto-scroll thumbnail strip to keep the selected thumbnail visible
+  useEffect(() => {
+    if (!thumbnailRef.current) return
+    const container = thumbnailRef.current
+    const thumbnails = container.children
+    if (!thumbnails[selectedImage]) return
+    const thumb = thumbnails[selectedImage] as HTMLElement
+    const thumbLeft = thumb.offsetLeft
+    const thumbWidth = thumb.offsetWidth
+    const containerWidth = container.clientWidth
+    const scrollTarget = thumbLeft - (containerWidth / 2) + (thumbWidth / 2)
+    container.scrollTo({ left: scrollTarget, behavior: 'smooth' })
+  }, [selectedImage])
+
   // Helper to get YouTube/Vimeo embed URL
   const getVideoEmbedUrl = (url: string) => {
     if (!url) return null
