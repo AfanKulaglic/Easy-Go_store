@@ -1145,6 +1145,33 @@ export default function AdminPage() {
                                 <Trash2 className="w-4 h-4" />
                               </button>
                             </div>
+
+                            {/* Tracking Note */}
+                            <div className="mt-3">
+                              <label className="block text-[10px] text-muted uppercase tracking-wider mb-1">Napomena o dostavi (vidljivo kupcu)</label>
+                              <div className="flex gap-2">
+                                <input
+                                  type="text"
+                                  defaultValue={order.trackingNote || ''}
+                                  placeholder="Npr. Paket je poslan BEX-om, očekivana dostava 2-3 dana..."
+                                  onKeyDown={(e) => {
+                                    if (e.key === 'Enter' && order.id) {
+                                      updateOrder(order.id, { trackingNote: (e.target as HTMLInputElement).value })
+                                    }
+                                  }}
+                                  className="flex-1 bg-background border border-white/10 rounded-xl px-3 py-2 text-xs text-text placeholder:text-muted/50 focus:outline-none focus:border-primary"
+                                />
+                                <button
+                                  onClick={(e) => {
+                                    const input = (e.currentTarget.previousElementSibling as HTMLInputElement)
+                                    if (order.id) updateOrder(order.id, { trackingNote: input.value })
+                                  }}
+                                  className="px-3 py-2 bg-primary/10 hover:bg-primary/20 text-primary rounded-xl transition-colors text-xs font-medium"
+                                >
+                                  Sačuvaj
+                                </button>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       )

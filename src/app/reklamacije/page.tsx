@@ -1,5 +1,3 @@
-'use client'
-
 import Link from 'next/link'
 import { ChevronLeft, AlertTriangle, Camera, Clock, Phone, Mail, PackageX, CheckCircle, XCircle } from 'lucide-react'
 

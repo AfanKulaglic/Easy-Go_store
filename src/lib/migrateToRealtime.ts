@@ -3,9 +3,10 @@
 // Run this ONCE in browser to migrate Firestore data to Realtime Database
 // After migration, you can delete this file
 
-import { collection, getDocs } from 'firebase/firestore'
+import { collection, getDocs, getFirestore } from 'firebase/firestore'
 import { ref, set } from 'firebase/database'
-import { getFirebaseDb, getFirebaseRealtimeDb } from './firebase'
+import { getFirebaseRealtimeDb } from './firebase'
+import getFirebaseApp from './firebase'
 
 export async function migrateFirestoreToRealtime() {
   console.log('=== MIGRATION STARTED ===')
@@ -13,7 +14,8 @@ export async function migrateFirestoreToRealtime() {
   console.log('')
   console.log('Step 1: Getting Firebase instances...')
   
-  const firestore = getFirebaseDb()
+  const app = getFirebaseApp()
+  const firestore = app ? getFirestore(app) : undefined
   const realtimeDb = getFirebaseRealtimeDb()
   
   if (!firestore) {

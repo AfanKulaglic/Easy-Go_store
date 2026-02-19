@@ -1,5 +1,3 @@
-'use client'
-
 import { Truck, ShieldCheck, RefreshCw, Award, BadgeCheck } from 'lucide-react'
 
 const badges = [

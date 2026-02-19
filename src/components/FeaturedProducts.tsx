@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Heart, Plus, Star, ChevronRight, Sparkles } from 'lucide-react'
 import { useCartStore } from '@/store/cartStore'
 import { useFeaturedProducts } from '@/hooks/useProducts'
@@ -88,10 +89,12 @@ export default function FeaturedProducts() {
               {/* Image */}
               <div className="relative h-36 lg:h-44 bg-gradient-to-br from-white/[0.03] to-white/[0.01] flex items-center justify-center overflow-hidden">
                 {isImageUrl(product.image) ? (
-                  <img 
+                  <Image 
                     src={product.image} 
                     alt={product.name} 
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
+                    fill
+                    sizes="(max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 16vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-110" 
                   />
                 ) : (
                   <span className="text-5xl lg:text-6xl transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">{product.image}</span>

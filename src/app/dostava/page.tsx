@@ -1,5 +1,3 @@
-'use client'
-
 import Link from 'next/link'
 import { ChevronLeft, Truck, MapPin, Package, Search, Headphones, CreditCard, Calendar } from 'lucide-react'
 

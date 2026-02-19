@@ -1,5 +1,3 @@
-'use client'
-
 import Link from 'next/link'
 import { ChevronLeft, Shield, CheckCircle, XCircle, Package, Phone, Mail } from 'lucide-react'
 

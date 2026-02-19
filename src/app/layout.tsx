@@ -9,7 +9,7 @@ import { DataCacheProvider } from '@/context/DataCacheContext'
 import { GlobalLoader } from '@/components/GlobalLoader'
 import { IframeSync } from '@/components/IframeSync'
 import { CartSync } from '@/components/CartSync'
-import CookieConsent, { CookieSettingsButton } from '@/components/CookieConsent'
+import LazyCookieConsent from '@/components/LazyCookieConsent'
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -79,8 +79,7 @@ export default function RootLayout({
                 </div>
               </main>
               <Footer />
-              <CookieConsent />
-              <CookieSettingsButton />
+              <LazyCookieConsent />
             </GlobalLoader>
           </DataCacheProvider>
           </AuthProvider>

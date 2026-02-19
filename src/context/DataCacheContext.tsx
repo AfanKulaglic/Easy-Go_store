@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react'
+import { createContext, useContext, useState, useEffect, useCallback, useMemo, ReactNode } from 'react'
 import { 
   Product, Category, Subcategory,
   subscribeToProducts, subscribeToCategories, subscribeToSubcategories 
@@ -200,16 +200,18 @@ export function DataCacheProvider({ children }: { children: ReactNode }) {
     }, 5000)
   }, [])
 
+  const contextValue = useMemo(() => ({
+    products,
+    categories,
+    subcategories,
+    loading,
+    progress,
+    isInitialized,
+    refreshData
+  }), [products, categories, subcategories, loading, progress, isInitialized, refreshData])
+
   return (
-    <DataCacheContext.Provider value={{
-      products,
-      categories,
-      subcategories,
-      loading,
-      progress,
-      isInitialized,
-      refreshData
-    }}>
+    <DataCacheContext.Provider value={contextValue}>
       {children}
     </DataCacheContext.Provider>
   )

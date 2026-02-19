@@ -1,5 +1,3 @@
-'use client'
-
 import Link from 'next/link'
 import { ChevronLeft, Heart, Users, Headphones, TrendingUp, Award } from 'lucide-react'
 

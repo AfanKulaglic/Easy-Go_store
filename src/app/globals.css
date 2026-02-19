@@ -23,6 +23,42 @@
   }
 }
 
+/* Desktop search expand animation */
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    max-width: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  40% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+    max-width: 20rem;
+    padding-left: revert;
+    padding-right: revert;
+  }
+}
+
+@keyframes slideOut {
+  0% {
+    opacity: 1;
+    max-width: 20rem;
+  }
+  60% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0;
+    max-width: 0;
+    padding-left: 0;
+    padding-right: 0;
+    overflow: hidden;
+  }
+}
+
 /* Prevent horizontal overflow on mobile */
 html, body {
   overflow-x: hidden;

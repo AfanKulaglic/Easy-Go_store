@@ -1,5 +1,3 @@
-'use client'
-
 import Link from 'next/link'
 import { ChevronLeft, FileText, ShoppingCart, Ban, RotateCcw, Scale, AlertTriangle, Mail } from 'lucide-react'
 

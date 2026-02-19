@@ -1,7 +1,6 @@
 // Firebase must only run on client side
 import { initializeApp, getApps, FirebaseApp } from 'firebase/app'
 import { getAuth, Auth } from 'firebase/auth'
-import { getFirestore, Firestore, initializeFirestore } from 'firebase/firestore'
 import { getStorage, FirebaseStorage } from 'firebase/storage'
 import { getDatabase, Database } from 'firebase/database'
 
@@ -18,7 +17,6 @@ const firebaseConfig = {
 // Lazy initialization - only initialize on client
 let app: FirebaseApp | undefined
 let auth: Auth | undefined
-let db: Firestore | undefined
 let storage: FirebaseStorage | undefined
 let realtimeDb: Database | undefined
 
@@ -45,21 +43,6 @@ export function getFirebaseAuth() {
     }
   }
   return auth
-}
-
-export function getFirebaseDb() {
-  if (!db) {
-    const firebaseApp = getFirebaseApp()
-    if (firebaseApp) {
-      try {
-        db = getFirestore(firebaseApp)
-      } catch (error) {
-        console.error('[Firebase] Failed to initialize Firestore:', error)
-        return undefined
-      }
-    }
-  }
-  return db
 }
 
 export function getFirebaseStorage() {

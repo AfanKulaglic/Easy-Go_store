@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useEffect, useState, useCallback } from 'react'
+import { createContext, useContext, useEffect, useState, useCallback, useMemo } from 'react'
 import { syncThemeCookie } from '@/lib/cookieManager'
 
 type Theme = 'dark' | 'light'
@@ -38,8 +38,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     syncThemeCookie(newTheme)
   }, [theme])
 
+  const contextValue = useMemo(() => ({ theme, toggleTheme, setTheme }), [theme, toggleTheme, setTheme])
+
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme, setTheme }}>
+    <ThemeContext.Provider value={contextValue}>
       {children}
     </ThemeContext.Provider>
   )

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Zap, ChevronRight, Clock, Heart, ShoppingCart, Star } from 'lucide-react'
 import { useFlashDeals } from '@/hooks/useProducts'
 import { useCartStore } from '@/store/cartStore'
@@ -54,10 +55,12 @@ function FlashDealCard({ product }: { product: Product }) {
 
         {/* Image */}
         {isImageUrl(product.image) ? (
-          <img 
+          <Image 
             src={product.image} 
             alt={product.name} 
-            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" 
+            fill
+            sizes="(max-width: 1024px) 160px, 208px"
+            className="object-cover transition-transform duration-300 group-hover:scale-105" 
           />
         ) : (
           <span className="text-4xl lg:text-5xl">{product.image}</span>

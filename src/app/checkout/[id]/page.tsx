@@ -6,6 +6,7 @@ import { ChevronLeft, Package, MapPin, Phone, Mail, User, AlertCircle, CheckCirc
 import Link from 'next/link'
 import { useProductById } from '@/hooks/useProducts'
 import { addOrder } from '@/lib/realtimeProducts'
+import { getGuestDeviceId } from '@/lib/realtimeProducts'
 import { useAuth } from '@/context/AuthContext'
 
 export default function CheckoutPage() {
@@ -36,6 +37,8 @@ export default function CheckoutPage() {
   const [orderComplete, setOrderComplete] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
+  const [showTrackingPopup, setShowTrackingPopup] = useState(false)
+
   // Auto-fill form with user data
   useEffect(() => {
     if (user && userProfile) {
@@ -50,6 +53,13 @@ export default function CheckoutPage() {
       }))
     }
   }, [user, userProfile])
+
+  // Auto-select first variant when standard is hidden
+  useEffect(() => {
+    if (product?.hideStandardVariant && product?.variants?.length && !selectedVariantId) {
+      setSelectedVariantId(product.variants[0].id)
+    }
+  }, [product?.hideStandardVariant, product?.variants, selectedVariantId])
 
   if (loading || !product) {
     return (
@@ -102,13 +112,15 @@ export default function CheckoutPage() {
     setIsSubmitting(true)
     try {
       await addOrder({
+        userId: user?.uid || null,
+        guestDeviceId: !user ? getGuestDeviceId() : null,
         items: [{
           productId: product.id!,
           productName: productNameWithVariant,
           productImage: product.image,
           price: unitPrice,
           quantity: quantity,
-          selectedVariants: selectedVariant?.value || (hasVariants ? standardLabel : undefined)
+          selectedVariants: selectedVariant?.value || (hasVariants ? standardLabel : null)
         }],
         totalPrice: totalPrice,
         customerName: formData.firstName,
@@ -140,13 +152,6 @@ export default function CheckoutPage() {
       setErrors(prev => ({ ...prev, variant: '' }))
     }
   }
-
-  // Auto-select first variant when standard is hidden
-  useEffect(() => {
-    if (product?.hideStandardVariant && product?.variants?.length && !selectedVariantId) {
-      setSelectedVariantId(product.variants[0].id)
-    }
-  }, [product?.hideStandardVariant, product?.variants, selectedVariantId])
 
   // Order Complete Screen
   if (orderComplete) {
@@ -197,14 +202,79 @@ export default function CheckoutPage() {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3">
-            <Link href="/" className="flex-1 bg-primary hover:bg-primary/90 text-white py-3 px-6 rounded-xl font-medium transition-colors text-center">
+            <button
+              onClick={() => setShowTrackingPopup(true)}
+              className="flex-1 bg-primary hover:bg-primary/90 text-white py-3 px-6 rounded-xl font-medium transition-colors text-center"
+            >
               Nastavi kupovinu
-            </Link>
-            <Link href={`/product/${product.slug || productId}`} className="flex-1 bg-surface hover:bg-white/5 text-text py-3 px-6 rounded-xl font-medium transition-colors border border-white/10 text-center">
+            </button>
+            <button
+              onClick={() => setShowTrackingPopup(true)}
+              className="flex-1 bg-surface hover:bg-white/5 text-text py-3 px-6 rounded-xl font-medium transition-colors border border-white/10 text-center"
+            >
               Nazad na proizvod
-            </Link>
+            </button>
           </div>
         </div>
+
+        {/* Tracking Popup */}
+        {showTrackingPopup && (
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setShowTrackingPopup(false)}>
+            <div className="bg-surface rounded-2xl w-full max-w-sm p-6 border border-white/5 text-center" onClick={e => e.stopPropagation()}>
+              <div className="w-16 h-16 bg-blue-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Package className="w-8 h-8 text-blue-500" />
+              </div>
+              <h3 className="text-lg font-bold text-text mb-2">Želite pratiti vašu narudžbu?</h3>
+              {user ? (
+                <>
+                  <p className="text-sm text-muted mb-5">Pratite status dostave u realnom vremenu na stranici vaših narudžbi.</p>
+                  <Link
+                    href="/tracking"
+                    className="block w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-medium transition-colors mb-3"
+                  >
+                    Prati narudžbu
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <p className="text-sm text-muted mb-5">Prijavite se kako biste mogli pratiti status vaše narudžbe u realnom vremenu.</p>
+                  <Link
+                    href="/auth/login"
+                    className="block w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-medium transition-colors mb-3"
+                  >
+                    Prijavi se
+                  </Link>
+                  <Link
+                    href="/auth/register"
+                    className="block w-full bg-white/5 hover:bg-white/10 text-text py-3 rounded-xl font-medium transition-colors mb-3 border border-white/10"
+                  >
+                    Registruj se
+                  </Link>
+                </>
+              )}
+              <button
+                onClick={() => setShowTrackingPopup(false)}
+                className="text-sm text-muted hover:text-text transition-colors mt-1"
+              >
+                Možda kasnije
+              </button>
+              <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-white/5">
+                <Link
+                  href="/"
+                  className="w-full bg-primary/10 hover:bg-primary/20 text-primary py-2.5 rounded-xl text-sm font-medium transition-colors"
+                >
+                  Nastavi kupovinu
+                </Link>
+                <Link
+                  href={`/product/${product.slug || productId}`}
+                  className="w-full bg-white/5 hover:bg-white/10 text-text py-2.5 rounded-xl text-sm font-medium transition-colors"
+                >
+                  Nazad na proizvod
+                </Link>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     )
   }

@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Home, MessageCircle, ShoppingCart, Phone } from 'lucide-react'
+import { Home, MessageCircle, ShoppingCart, Package } from 'lucide-react'
 import { useCartStore } from '@/store/cartStore'
 import { useState, useEffect } from 'react'
 
@@ -19,7 +19,7 @@ export default function BottomNav() {
     { href: '/', icon: Home, label: 'Početna' },
     { href: '/chat', icon: MessageCircle, label: 'Chat' },
     { href: '/cart', icon: ShoppingCart, label: 'Korpa', badge: totalItems },
-    { href: '/contact', icon: Phone, label: 'Kontakt' },
+    { href: '/tracking', icon: Package, label: 'Narudžbe' },
   ]
 
   return (

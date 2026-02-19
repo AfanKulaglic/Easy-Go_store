@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react'
+import { createContext, useContext, useState, useEffect, useCallback, useMemo, ReactNode } from 'react'
 import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
@@ -14,6 +14,7 @@ import {
 } from 'firebase/auth'
 import { ref, set, get, update } from 'firebase/database'
 import { getFirebaseAuth, getFirebaseRealtimeDb } from '@/lib/firebase'
+import { migrateGuestOrders } from '@/lib/realtimeProducts'
 
 export interface UserProfile {
   uid: string
@@ -83,6 +84,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setUser(firebaseUser)
       if (firebaseUser) {
         await loadUserProfile(firebaseUser)
+        // Migrate any guest orders from this device to the logged-in user
+        try {
+          const migrated = await migrateGuestOrders(firebaseUser.uid)
+          if (migrated > 0) {
+            console.log(`Migrated ${migrated} guest order(s) to user ${firebaseUser.uid}`)
+          }
+        } catch (e) {
+          console.error('Error migrating guest orders:', e)
+        }
       } else {
         setUserProfile(null)
       }
@@ -160,18 +170,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, [user])
 
+  const contextValue = useMemo(() => ({
+    user,
+    userProfile,
+    loading,
+    login,
+    register,
+    loginWithGoogle,
+    logout,
+    resetPassword,
+    updateUserProfile,
+  }), [user, userProfile, loading, login, register, loginWithGoogle, logout, resetPassword, updateUserProfile])
+
   return (
-    <AuthContext.Provider value={{
-      user,
-      userProfile,
-      loading,
-      login,
-      register,
-      loginWithGoogle,
-      logout,
-      resetPassword,
-      updateUserProfile,
-    }}>
+    <AuthContext.Provider value={contextValue}>
       {children}
     </AuthContext.Provider>
   )

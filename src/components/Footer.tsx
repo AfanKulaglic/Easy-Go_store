@@ -1,6 +1,5 @@
-'use client'
-
 import Link from 'next/link'
+import Image from 'next/image'
 import { Mail, Phone, MapPin, Facebook, Instagram, MessageCircle } from 'lucide-react'
 
 export default function Footer() {
@@ -13,7 +12,7 @@ export default function Footer() {
           {/* Logo & About */}
           <div className="col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4">
-              <img src="/assets/images/full-logo.png" alt="EasyGo" className="h-8 w-auto" />
+              <Image src="/assets/images/full-logo.png" alt="EasyGo" width={120} height={32} className="h-8 w-auto" />
             </Link>
             <p className="text-sm text-muted leading-relaxed mb-4">
               Vaša pouzdana online destinacija za kupovinu. Kvalitetni proizvodi po najboljim cijenama.
@@ -53,6 +52,11 @@ export default function Footer() {
               <li>
                 <Link href="/chat" className="text-sm text-muted hover:text-primary transition-colors">
                   Kontakt
+                </Link>
+              </li>
+              <li>
+                <Link href="/tracking" className="text-sm text-muted hover:text-primary transition-colors">
+                  Moje narudžbe
                 </Link>
               </li>
             </ul>

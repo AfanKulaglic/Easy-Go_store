@@ -113,8 +113,8 @@ export default function ProductPage() {
     )
   }
 
-  const allImages = [displayProduct.image, ...(displayProduct.images || [])].filter(img => img && (img.startsWith('data:') || img.startsWith('http')))
-  const currentImage = allImages[selectedImage] || displayProduct.image
+  const allImages: string[] = []
+  const currentImage = ''
   const hasVideo = !!displayProduct.videoUrl
 
   const handleAddToCart = () => {
@@ -180,7 +180,7 @@ export default function ProductPage() {
     return null
   }
 
-  const isImageData = (str: string) => str?.startsWith('data:image')
+  const isImageData = (_str: string) => false
 
   const discount = displayProduct.originalPrice 
     ? Math.round(((displayProduct.originalPrice - displayProduct.price) / displayProduct.originalPrice) * 100)
@@ -315,9 +315,9 @@ export default function ProductPage() {
                 {isImageData(currentImage) ? (
                   <img src={currentImage} alt={displayProduct.name} className="w-full h-full object-contain drop-shadow-2xl" />
                 ) : (
-                  <div className="text-muted text-center">
-                    <span className="text-6xl block mb-2">📷</span>
-                    <span className="text-sm">Nema slike</span>
+                  <div className="text-muted text-center flex flex-col items-center justify-center">
+                    <img src="/assets/images/logo.png" alt={displayProduct.name} className="w-24 h-24 lg:w-32 lg:h-32 object-contain opacity-30 mb-2" />
+                  </div>
                   </div>
                 )}
               </div>
@@ -739,11 +739,7 @@ export default function ProductPage() {
                     className={`group bg-surface rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-black/20 transition-all border border-white/5 ${index >= 2 ? 'hidden lg:block' : ''}`}
                   >
                     <div className="relative aspect-square bg-gradient-to-br from-white/5 to-transparent flex items-center justify-center">
-                      {item.image && item.image.startsWith('data:') ? (
-                        <img src={item.image} alt={item.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
-                      ) : (
-                        <span className="text-4xl text-muted">📷</span>
-                      )}
+                      <img src="/assets/images/logo.png" alt={item.name} className="w-12 h-12 object-contain opacity-30" />
                       {badgeInfo && (
                         <span className={`absolute top-3 left-3 text-[10px] font-medium px-2 py-1 rounded-lg ${badgeInfo.className}`}>
                           {badgeInfo.text}

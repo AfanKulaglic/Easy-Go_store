@@ -107,6 +107,8 @@ export interface OrderItem {
 
 export interface Order {
   id?: string
+  userId?: string
+  guestDeviceId?: string
   items: OrderItem[]
   totalPrice: number
   customerName: string
@@ -116,6 +118,7 @@ export interface Order {
   customerAddress: string
   customerCity: string
   status: 'new' | 'processing' | 'shipped' | 'delivered' | 'cancelled'
+  trackingNote?: string
   seen: boolean
   createdAt: number
   updatedAt?: number
@@ -479,6 +482,86 @@ export const subscribeToOrders = (callback: (orders: Order[]) => void) => {
     const orders = objectToArray<Order>(snapshot.val())
     callback(orders.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0)))
   })
+}
+
+export const getOrdersByUserId = async (userId: string): Promise<Order[]> => {
+  const db = getFirebaseRealtimeDb()
+  if (!db) return []
+  try {
+    const snapshot = await get(ref(db, 'orders'))
+    const orders = objectToArray<Order>(snapshot.val())
+    return orders.filter(o => o.userId === userId).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0))
+  } catch (error) {
+    console.error('[Realtime DB] Error fetching user orders:', error)
+    return []
+  }
+}
+
+export const subscribeToUserOrders = (userId: string, callback: (orders: Order[]) => void) => {
+  const db = getFirebaseRealtimeDb()
+  if (!db) {
+    callback([])
+    return () => {}
+  }
+  return onValue(ref(db, 'orders'), (snapshot) => {
+    const orders = objectToArray<Order>(snapshot.val())
+    callback(orders.filter(o => o.userId === userId).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0)))
+  })
+}
+
+export const subscribeToGuestOrders = (deviceId: string, callback: (orders: Order[]) => void) => {
+  const db = getFirebaseRealtimeDb()
+  if (!db) {
+    callback([])
+    return () => {}
+  }
+  return onValue(ref(db, 'orders'), (snapshot) => {
+    const orders = objectToArray<Order>(snapshot.val())
+    callback(orders.filter(o => o.guestDeviceId === deviceId && !o.userId).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0)))
+  })
+}
+
+// Guest device ID for tracking orders before login
+const GUEST_DEVICE_ID_KEY = 'easygo_guest_device_id'
+
+export const getGuestDeviceId = (): string => {
+  if (typeof window === 'undefined') return ''
+  let deviceId = localStorage.getItem(GUEST_DEVICE_ID_KEY)
+  if (!deviceId) {
+    deviceId = 'guest_' + Date.now() + '_' + Math.random().toString(36).substring(2, 10)
+    localStorage.setItem(GUEST_DEVICE_ID_KEY, deviceId)
+  }
+  return deviceId
+}
+
+export const migrateGuestOrders = async (userId: string): Promise<number> => {
+  if (typeof window === 'undefined') return 0
+  const deviceId = localStorage.getItem(GUEST_DEVICE_ID_KEY)
+  if (!deviceId) return 0
+
+  const db = getFirebaseRealtimeDb()
+  if (!db) return 0
+
+  try {
+    const snapshot = await get(ref(db, 'orders'))
+    if (!snapshot.exists()) return 0
+
+    const orders = objectToArray<Order>(snapshot.val())
+    const guestOrders = orders.filter(o => o.guestDeviceId === deviceId && !o.userId)
+
+    let migrated = 0
+    for (const order of guestOrders) {
+      if (order.id) {
+        await update(ref(db, `orders/${order.id}`), { userId, updatedAt: Date.now() })
+        migrated++
+      }
+    }
+
+    return migrated
+  } catch (error) {
+    console.error('[Realtime DB] Error migrating guest orders:', error)
+    return 0
+  }
 }
 
 // Helper functions

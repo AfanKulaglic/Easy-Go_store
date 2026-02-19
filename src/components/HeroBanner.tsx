@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useHeroProducts } from '@/hooks/useProducts'
 import { Product } from '@/lib/realtimeProducts'
@@ -98,14 +99,17 @@ export default function HeroBanner() {
                 </div>
                 
                 {/* Image container - right side */}
-                <div className={`w-[45%] sm:w-[50%] lg:w-[55%] bg-gradient-to-br from-primary/5 to-accent/10 overflow-hidden transition-all duration-700 ${
+                <div className={`w-[45%] sm:w-[50%] lg:w-[55%] relative bg-gradient-to-br from-primary/5 to-accent/10 overflow-hidden transition-all duration-700 ${
                   index === current ? 'scale-100' : 'scale-110'
                 }`}>
                   {banner.image && isImageUrl(banner.image) ? (
-                    <img 
+                    <Image 
                       src={banner.image} 
                       alt={banner.name || ''} 
-                      className={`w-full h-full object-cover transition-transform duration-700 ${
+                      fill
+                      sizes="(max-width: 640px) 45vw, (max-width: 1024px) 50vw, 55vw"
+                      priority={index === 0}
+                      className={`object-cover transition-transform duration-700 ${
                         index === current ? 'scale-100' : 'scale-105'
                       }`}
                     />
