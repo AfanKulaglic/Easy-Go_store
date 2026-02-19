@@ -95,7 +95,7 @@ export default function LoginPage() {
         <div className="absolute top-1/2 left-0 w-40 h-40 bg-white/5 rounded-full blur-2xl" />
 
         {/* Top */}
-        <div className="relative z-10 text-right">
+        <div className="relative z-10 text-left">
           <div className="flex items-center gap-3 mb-12 justify-end">
             <div className="h-11 w-11 rounded-xl bg-white/15 backdrop-blur-sm flex items-center justify-center ring-1 ring-white/20">
               <img src="/assets/images/logo.png" alt="Logo" className="h-7 w-7 object-contain" />
@@ -117,7 +117,7 @@ export default function LoginPage() {
               <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center ring-1 ring-white/10 group-hover:bg-white/15 transition-colors flex-shrink-0">
                 <feat.icon className="w-5 h-5 text-white/80" />
               </div>
-              <div className="text-right">
+              <div className="text-left">
                 <p className="text-white text-sm font-semibold">{feat.title}</p>
                 <p className="text-white/50 text-xs">{feat.desc}</p>
               </div>
