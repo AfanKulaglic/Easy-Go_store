@@ -82,8 +82,8 @@ export default function CartCheckoutPage() {
     setIsSubmitting(true)
     try {
       await addOrder({
-        userId: user?.uid || null,
-        guestDeviceId: !user ? getGuestDeviceId() : null,
+        userId: user?.uid || undefined,
+        guestDeviceId: !user ? getGuestDeviceId() : undefined,
         items: items.map(item => ({
           productId: item.id,
           productName: item.name,

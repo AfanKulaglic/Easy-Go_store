@@ -112,15 +112,15 @@ export default function CheckoutPage() {
     setIsSubmitting(true)
     try {
       await addOrder({
-        userId: user?.uid || null,
-        guestDeviceId: !user ? getGuestDeviceId() : null,
+        userId: user?.uid || undefined,
+        guestDeviceId: !user ? getGuestDeviceId() : undefined,
         items: [{
           productId: product.id!,
           productName: productNameWithVariant,
           productImage: product.image,
           price: unitPrice,
           quantity: quantity,
-          selectedVariants: selectedVariant?.value || (hasVariants ? standardLabel : null)
+          selectedVariants: selectedVariant?.value || (hasVariants ? standardLabel : undefined)
         }],
         totalPrice: totalPrice,
         customerName: formData.firstName,
