@@ -86,7 +86,31 @@ export default function LoginPage() {
   ]
 
   return (
-    <div className="min-h-[calc(100vh-7rem)] flex">
+    <div className="min-h-[calc(100vh-7rem)] flex flex-col lg:flex-row">
+      {/* Mobile Blue Banner */}
+      <div className="lg:hidden relative overflow-hidden bg-gradient-to-br from-primary via-blue-600 to-indigo-700 px-5 py-5">
+        <div className="absolute -top-12 -left-12 w-32 h-32 bg-white/10 rounded-full blur-2xl" />
+        <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-white/5 rounded-full blur-xl" />
+        <div className="relative z-10">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="h-9 w-9 rounded-xl bg-white/15 backdrop-blur-sm flex items-center justify-center ring-1 ring-white/20">
+              <img src="/assets/images/logo.png" alt="Logo" className="h-5 w-5 object-contain" />
+            </div>
+            <span className="text-white/90 font-bold text-base tracking-tight">Easy Go</span>
+          </div>
+          <h2 className="text-xl font-bold text-white leading-tight mb-1">Vaša omiljena online prodavnica</h2>
+          <p className="text-white/50 text-xs">Prijavite se i uživajte u najboljim ponudama.</p>
+          <div className="flex items-center gap-4 mt-3">
+            {features.slice(0, 3).map((feat, i) => (
+              <div key={i} className="flex items-center gap-1.5">
+                <feat.icon className="w-3.5 h-3.5 text-white/60" />
+                <span className="text-[10px] text-white/70 font-medium">{feat.title}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* Left Panel — Brand/Features (desktop only) */}
       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-gradient-to-br from-primary via-blue-600 to-indigo-700 flex-col justify-center items-center gap-10 p-10 xl:p-12 pb-24">
         {/* Decorative circles */}
@@ -145,19 +169,11 @@ export default function LoginPage() {
 
       {/* Right Panel — Form */}
       <div className="flex-1 flex flex-col">
-        <div className="flex-1 flex flex-col justify-center px-5 sm:px-8 lg:px-16 xl:px-20 py-8">
+        <div className="flex-1 flex flex-col justify-center px-5 sm:px-8 lg:px-16 xl:px-20 py-5 lg:py-8">
           <div className="w-full max-w-[400px] mx-auto lg:mx-0">
             
-            {/* Mobile logo */}
-            <div className="lg:hidden flex items-center gap-3 mb-8">
-              <div className="h-11 w-11 rounded-xl bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center shadow-lg shadow-primary/20">
-                <img src="/assets/images/logo.png" alt="Logo" className="h-7 w-7 object-contain" />
-              </div>
-              <span className="text-text font-bold text-lg">Easy Go</span>
-            </div>
-
             {/* Heading */}
-            <div className="mb-8">
+            <div className="mb-6 lg:mb-8">
               <h1 className="text-2xl lg:text-[28px] font-bold text-text tracking-tight">Prijava</h1>
               <p className="text-muted mt-2 text-sm">Dobrodošli nazad! Unesite vaše podatke.</p>
             </div>
