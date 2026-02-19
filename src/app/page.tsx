@@ -5,15 +5,15 @@ import dynamic from 'next/dynamic'
 import HeroBanner from '@/components/HeroBanner'
 import CategoryGrid from '@/components/CategoryGrid'
 import FlashDeals from '@/components/FlashDeals'
+import TopProducts from '@/components/TopProducts'
+import PromoBanner from '@/components/PromoBanner'
+import WeeklyBestSellers from '@/components/WeeklyBestSellers'
+import TrustBadges from '@/components/TrustBadges'
+import FeaturedProducts from '@/components/FeaturedProducts'
 import { trackPageView } from '@/lib/cookieManager'
 
-// Lazy load below-the-fold components
+// Only DarkModeToggle needs dynamic import (client-only, no SSR)
 const DarkModeToggle = dynamic(() => import('@/components/DarkModeToggle'), { ssr: false })
-const TopProducts = dynamic(() => import('@/components/TopProducts'))
-const PromoBanner = dynamic(() => import('@/components/PromoBanner'))
-const WeeklyBestSellers = dynamic(() => import('@/components/WeeklyBestSellers'))
-const TrustBadges = dynamic(() => import('@/components/TrustBadges'))
-const FeaturedProducts = dynamic(() => import('@/components/FeaturedProducts'))
 
 export default function Home() {
   useEffect(() => {
