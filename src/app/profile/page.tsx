@@ -143,8 +143,8 @@ export default function ProfilePage() {
             )}
           </div>
 
-          {/* Edit button */}
-          <div className="absolute top-3 right-4 lg:right-6">
+          {/* Edit & Logout buttons */}
+          <div className="absolute top-3 right-4 lg:right-6 flex items-center gap-2">
             {!editMode && (
               <button
                 onClick={startEdit}
@@ -154,6 +154,13 @@ export default function ProfilePage() {
                 Uredi profil
               </button>
             )}
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-1.5 bg-danger/10 hover:bg-danger/20 text-danger px-3 py-1.5 rounded-lg text-xs font-medium transition-all"
+            >
+              <LogOut className="w-3.5 h-3.5" />
+              Odjava
+            </button>
           </div>
 
           {/* Name & email */}
