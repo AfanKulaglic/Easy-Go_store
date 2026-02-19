@@ -96,7 +96,7 @@ export default function RegisterPage() {
   return (
     <div className="min-h-[calc(100vh-5rem)] flex">
       {/* Left Panel — Brand/Features (desktop only) */}
-      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-gradient-to-br from-primary via-blue-600 to-indigo-700 flex-col justify-center gap-10 p-10 xl:p-12">
+      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-gradient-to-br from-primary via-blue-600 to-indigo-700 flex-col justify-center items-center gap-10 p-10 xl:p-12">
         {/* Decorative circles */}
         <div className="absolute -top-24 -left-24 w-64 h-64 bg-white/10 rounded-full blur-2xl" />
         <div className="absolute -bottom-32 -right-32 w-80 h-80 bg-white/5 rounded-full blur-3xl" />
