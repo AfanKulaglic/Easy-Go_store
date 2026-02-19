@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, createContext, useContext } from 'react'
 import { Cookie, Shield, ChevronDown, ChevronUp, Settings2 } from 'lucide-react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import {
   type CookiePreferences,
   CONSENT_KEY,
@@ -17,6 +18,7 @@ type ReopenFn = () => void
 const ReopenContext = createContext<ReopenFn | null>(null)
 
 export default function CookieConsent() {
+  const pathname = usePathname()
   const [visible, setVisible] = useState(false)
   const [showDetails, setShowDetails] = useState(false)
   const [animateIn, setAnimateIn] = useState(false)
@@ -272,19 +274,22 @@ export default function CookieConsent() {
       )}
 
       {/* Settings button — only visible when consent was already given and banner is hidden */}
-      {hasConsented && !visible && <CookieSettingsButtonInner />}
+      {hasConsented && !visible && <CookieSettingsButtonInner pathname={pathname} />}
     </ReopenContext.Provider>
   )
 }
 
 // Inner settings button that uses context to reopen the banner (no reload)
-function CookieSettingsButtonInner() {
+function CookieSettingsButtonInner({ pathname }: { pathname: string }) {
   const reopen = useContext(ReopenContext)
+  const isProductPage = pathname.startsWith('/product/')
 
   return (
     <button
       onClick={() => reopen?.()}
-      className="fixed bottom-4 right-4 z-[9998] h-10 w-10 rounded-full bg-surface border border-white/[0.08] shadow-lg shadow-black/20 flex items-center justify-center text-muted hover:text-primary hover:border-primary/30 transition-all group"
+      className={`fixed right-4 z-[9998] h-10 w-10 rounded-full bg-surface border border-white/[0.08] shadow-lg shadow-black/20 flex items-center justify-center text-muted hover:text-primary hover:border-primary/30 transition-all group ${
+        isProductPage ? 'bottom-20 lg:bottom-4' : 'bottom-4'
+      }`}
       aria-label="Postavke kolačića"
       title="Postavke kolačića"
     >
