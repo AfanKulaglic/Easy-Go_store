@@ -228,7 +228,7 @@ export default function ProductPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background pb-36 lg:pb-8">
+    <div className="min-h-screen bg-background pb-36 lg:pb-8 max-w-7xl mx-auto">
       {/* Video Modal */}
       {showVideoModal && hasVideo && (
         <div className="fixed inset-0 bg-black/90 z-[100] flex items-center justify-center p-4" onClick={() => setShowVideoModal(false)}>

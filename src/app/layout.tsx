@@ -74,9 +74,7 @@ export default function RootLayout({
               <IframeSync />
               <Header />
               <main className="pt-16 lg:pt-20 pb-8 flex-1">
-                <div className="max-w-7xl mx-auto">
                   {children}
-                </div>
               </main>
               <Footer />
               <LazyCookieConsent />

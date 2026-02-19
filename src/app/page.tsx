@@ -21,7 +21,7 @@ export default function Home() {
   }, [])
 
   return (
-    <div className="min-h-screen lg:py-6">
+    <div className="min-h-screen lg:py-6 max-w-7xl mx-auto">
       <HeroBanner />
       <CategoryGrid />
       <FlashDeals />
