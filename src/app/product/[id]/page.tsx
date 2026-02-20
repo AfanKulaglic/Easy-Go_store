@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useCallback, useEffect, useMemo } from 'react'
-import { useParams, useRouter } from 'next/navigation'
+import { useParams, useRouter, useSearchParams } from 'next/navigation'
 import Image from 'next/image'
 import { Heart, ChevronLeft, Check, Plus, Star, ChevronRight, ShoppingCart, Share2, Shield, Truck, RotateCcw, Play, X } from 'lucide-react'
 import Link from 'next/link'
@@ -20,6 +20,21 @@ export default function ProductPage() {
   const { product, loading } = useProductBySlug(slugOrId)
   const { related: relatedProducts } = useRelatedProducts(slugOrId, 5)
   const { products } = useProducts()
+
+  // Smart back navigation - uses router.push for smooth client-side transitions
+  const handleBack = useCallback(() => {
+    try {
+      const referrer = document.referrer
+      if (referrer) {
+        const url = new URL(referrer)
+        if (url.origin === window.location.origin && url.pathname !== window.location.pathname) {
+          router.push(url.pathname + url.search)
+          return
+        }
+      }
+    } catch {}
+    router.push('/')
+  }, [router])
 
   const [isWishlisted, setIsWishlisted] = useState(false)
   const [quantity, setQuantity] = useState(1)
@@ -301,7 +316,7 @@ export default function ProductPage() {
       {/* Secondary Header - Product Details (Fixed below main header) */}
       <div className="fixed top-[60px] lg:top-[72px] left-0 right-0 z-40 bg-background border-b border-white/5">
         <div className="flex items-center justify-between px-4 py-2 lg:px-8 lg:max-w-7xl lg:mx-auto">
-          <button onClick={() => router.back()} className="p-1.5 -ml-1.5 hover:bg-white/5 rounded-lg transition-colors">
+          <button onClick={handleBack} className="p-1.5 -ml-1.5 hover:bg-white/5 rounded-lg transition-colors">
             <ChevronLeft className="w-5 h-5 text-text" />
           </button>
           <h1 className="text-sm font-medium text-text">Detalji proizvoda</h1>
